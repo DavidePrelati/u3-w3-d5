@@ -9,7 +9,7 @@ const initialState = {
       case "ADD_SONG":
         return {
           ...state,
-          song: action.payload,
+          canzone: action.payload,
         };
       default:
         return state;
