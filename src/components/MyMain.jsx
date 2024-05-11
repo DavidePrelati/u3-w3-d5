@@ -1,52 +1,76 @@
-import { Col, Nav, Row } from "react-bootstrap";
+import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { myMusicSection, myMusicSectionEminem, myMusicSectionPerry, myMusicSectionQueen } from '../redux/actions';
+import MyAlbumCard from './MyAlbumCard';
 
 const MyMain = () => {
+
+    const dispatchQueen = useDispatch()
+  const dispatchPerry = useDispatch()
+  const dispatchEminem = useDispatch()
+
+  const queenSongs = useSelector((state) => state.song.resultsQueen)
+  const perrySongs = useSelector((state) => state.song.resultsPerry)
+  const eminemSongs = useSelector((state) => state.song.resultsEminem)
+  useEffect(()=> {
+
+    dispatchQueen(myMusicSectionQueen('Queen'));
+    dispatchPerry(myMusicSectionPerry('Katy Perry'));
+    dispatchEminem(myMusicSectionEminem('Eminem'));
+  },[])
   return (
-    <Col xs={12} md={9} className="offset-md-3 mainPage">
-      <Row >
-        <Col className="col-9 col-lg-11 mainLinks d-none d-md-flex">
-          <Nav.Link href="#">TRENDING</Nav.Link>
-          <Nav.Link href="#">PODCAST</Nav.Link>
-          <Nav.Link href="#">MOODS AND GENRES</Nav.Link>
-          <Nav.Link href="#">NEW RELEASES</Nav.Link>
-          <Nav.Link href="#">DISCOVER</Nav.Link>
-        </Col>
-      </Row>
-      <Row>
-        <Col className="col-10">
+    <main className="col-12 col-md-9 offset-md-3 mainPage">
+      <div className="row">
+        <div className="col-9 col-lg-11 mainLinks d-none d-md-flex">
+          <a href="#1">TRENDING</a>
+          <a href="#2">PODCAST</a>
+          <a href="#3">MOODS AND GENRES</a>
+          <a href="#4">NEW RELEASES</a>
+          <a href="#5">DISCOVER</a>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-10">
           <div id="rock">
             <h2>Rock Classics</h2>
-            <Row
-              className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
+            <div
+              className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
               id="rockSection"
-            ></Row>
+            >
+              { queenSongs && queenSongs.slice(0,4).map((song) => (<MyAlbumCard key={song.id} singleSong={song}/>))}
+            </div>
           </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col className="col-10">
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-10">
           <div id="pop">
             <h2>Pop Culture</h2>
-            <Row
-              className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
+            <div
+              className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
               id="popSection"
-            ></Row>
+            >
+              { perrySongs && perrySongs.slice(0,4).map((song) => (<MyAlbumCard key={song.id} singleSong={song}/>))}
+            </div>
           </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col className="col-10">
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-10">
           <div id="hiphop">
             <h2>#HipHop</h2>
-            <Row
-              className="row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
+            <div
+              className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 imgLinks py-3"
               id="hipHopSection"
-            ></Row>
+            >
+              { eminemSongs && eminemSongs.slice(0,4).map((song) => (<MyAlbumCard key={song.id} singleSong={song}/>))}
+            </div>
           </div>
-        </Col>
-      </Row>
-    </Col>
+        </div>
+      </div>
+    </main>
   );
-};
+}
 
 export default MyMain;

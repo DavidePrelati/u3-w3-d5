@@ -1,20 +1,21 @@
-import "./App.css";
-import { Container, Row } from "react-bootstrap";
-import MyMain from "./components/MyMain";
-import MySidebar from "./components/MySidebar.jsx";
+import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MySidebar from "./components/MySidebar";
+import MyPlayer from './components/MyPlayer';
+import MyMain from './components/MyMain';
+
 
 function App() {
- 
- 
   return (
-    <>
-      <Container fluid>
-        <Row>
+      <div className="App">
+        <BrowserRouter>
           <MySidebar />
-          <MyMain />
-        </Row>
-      </Container>
-    </>
+          <Routes>
+            <Route path="/" element={<MyMain />} />
+          </Routes>
+          <MyPlayer />
+        </BrowserRouter>
+      </div>
   );
 }
 
